@@ -5,8 +5,8 @@ class Tout(object):
         self.uid = uid
         self.text = text
         self.privacy = privacy
-        self.recorded_at = parse(recorded_at)
-        self.created_at = parse(created_at)
+        self.recorded_at = parse(recorded_at) if recorded_at != None else None
+        self.created_at = parse(created_at) if created_at != None else None
         self.likes_count = likes_count
         self.replies_count = replies_count
         self.liked = liked

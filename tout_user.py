@@ -14,6 +14,9 @@ class ToutUser(object):
         self.followed_by = followed_by
         
         self.immutable_fields = ['verified', 'touts_count', 'followers_count', 'friends_count', 'following', 'followed_by']
+    
+    def __str__(self):
+        return "@%s" % self.uid          
 
     def to_json(self):
         import simplejson as json
