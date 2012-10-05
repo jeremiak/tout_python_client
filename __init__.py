@@ -1,5 +1,6 @@
 import httplib, mimetypes, types, requests
 import simplejson as json
+
 from tout_user import ToutUser
 from tout_me import ToutMe
 from tout_tout import Tout
@@ -68,3 +69,14 @@ class ToutAPIClient(object):
     def get_content_type(self, filename):
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
+    def get_me(self):
+        headers = {'Authorization': 'Bearer %s' % self.access_token}
+        url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/me')
+        r = requests.get(url, headers=headers)
+        if r.status_code == 200:
+            u = r.json['user']
+            me = ToutMe(uid=u['uid'], username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
+            
+            return me
+        else:
+            return "An error occured"
