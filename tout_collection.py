@@ -1,3 +1,5 @@
+from tout_tout import Tout
+
 import requests
 import math
 
@@ -13,8 +15,6 @@ class ToutCollection(object):
         self._headers = {'Authorization': 'Bearer %s' % access_token}
         self._type = coll_type
         
-        print self._headers
-
         if current_page == 1:
             self.exact_page(page=1)
         else:
@@ -31,8 +31,6 @@ class ToutCollection(object):
     def set_collection(self, url):
         r = requests.get(url, headers=self._headers)
         
-        print r.status_code
-
         if r.status_code == 200:
             keys = r.json.keys()
             
@@ -40,7 +38,21 @@ class ToutCollection(object):
             self._pagination['total_entries'] = total_entries
             self._pagination['total_pages'] = int(math.ceil(total_entries / (self._pagination['per_page'] * 1.00)))
             keys.remove('pagination')
-            self.collection = r.json[keys[0]]
+            
+            collection = []
+            
+            for item in r.json[keys[0]]:
+                if self._type = 'touts':
+                    data = item['tout']
+                    user = data['user']
+                    token = self._headers['Authorization'].split(' ')[1]
+                    tout = Tout(uid=data['uid'], access_token=token, text=data['text'], privacy=data['privacy'], recorded_at=data['recorded_at'], likes_count=data['likes_count'], replies_count=data['replies_count'], retouts_count=data['retouts_count'], user=user) 
+                
+                    collection.append(tout)
+                else:
+                    collection.append(item)
+
+            self.collection = collection
 
     def different_page(self, difference=0):
         url = '%s?per_page=%d&page=%d' % (self._base_url, self._pagination['per_page'], (self._pagination['current_page'] + difference))
@@ -63,6 +75,5 @@ class ToutCollection(object):
 
     def exact_page(self, page=1):
         url = '%s?per_page=%d&page=%d' % (self._base_url, self._pagination['per_page'], page)
-        print url
 
         self.set_collection(url)
