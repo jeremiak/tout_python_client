@@ -27,6 +27,8 @@ class ToutCollection(object):
         return repr_string
 
     def set_collection(self, url):
+        print url
+        
         r = requests.get(url, headers=self._headers)
         
         if r.status_code == 200:
@@ -39,22 +41,23 @@ class ToutCollection(object):
             
             collection = []
             
+            print len(r.json[keys[0]])
+
             for item in r.json[keys[0]]:
                 from tout_user import ToutUser
+                token = self._headers['Authorization'].split(' ')[1]
                 if self._type == 'touts':
                     from tout_tout import Tout
 
-                    token = self._headers['Authorization'].split(' ')[1]
-
                     data = item['tout']
                     u = data['user']
-                    user = ToutUser(uid=u['uid'], username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
+                    user = ToutUser(uid=u['uid'], access_token=token, username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
                     tout = Tout(uid=data['uid'], access_token=token, text=data['text'], privacy=data['privacy'], recorded_at=data['recorded_at'], likes_count=data['likes_count'], replies_count=data['replies_count'], retouts_count=data['retouts_count'], user=user) 
                 
                     collection.append(tout)
                 else:
                     u = item['user']
-                    user = ToutUser(uid=u['uid'], username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
+                    user = ToutUser(uid=u['uid'], access_token=token, username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
 
                     collection.append(user)
 
