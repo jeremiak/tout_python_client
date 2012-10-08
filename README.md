@@ -37,6 +37,18 @@ jeremiak.touts.collection
 [Tout b2iw12, Tout p19ypy, Tout w69wnn, Tout oqpa2x, Tout s3cxoy, Tout rb30bl, Tout i5i5st, Tout q11rgi, Tout ooo1su, Tout kzn6to, Tout ujkup8, Tout 38j8kj, Tout 4h7ldj, Tout 2c9ygi]
 ```
 
+### Me
+
+Me is the authenticated user object, and extends the ToutUser class. It pretty much allows for the same functionality, but also allows for updating of the user information as well as posting of Touts.
+Posting Touts requires a proper multipart/form request, which is something we abstract away for you. Just pass the me.post_tout a Python file object as `tout_file` and you're good to go.
+
+```
+me = t.get_me()
+tout_to_post = open('tout.mp4')
+me.post_tout(tout_file=tout_to_post)
+```
+
+
 ### Tout
 
 Each Tout object allows for the text to be set on that Tout, for the changes to be saved if the current user owns the Tout, and to delete the Tout (again if the current user is the owner).
