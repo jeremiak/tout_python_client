@@ -17,7 +17,8 @@ class ToutUser(object):
         self.followed_by = followed_by
 
         self._access_token = access_token
-        
+        self._headers = {'Authorization': 'Bearer %s' % access_token}
+
         if url_settings is not None:
             self._url_settings = url_settings
         else:
@@ -38,6 +39,15 @@ class ToutUser(object):
         url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], api_method)
 
         return url
+
+    def follow(self):
+        url = self.construct_url('api/v1/users/%s/follows' % self.uid)
+
+        r = requests.post(url, headers=self._headers)
+        if r.status_code == 200:
+            print 'Now following %s' % self.uid
+        else:
+            print 'An error occured'
 
     def get_touts(self):
         url = self.construct_url('api/v1/users/%s/touts' % self.uid)
