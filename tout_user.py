@@ -34,28 +34,32 @@ class ToutUser(object):
     def __repr__(self):
         return self.__str__()
 
-    def get_touts(self):
-        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/touts' % self.uid)
+    def construct_url(self, api_method):
+        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], api_method)
 
-        self.touts = ToutCollection(base_url=url, access_token=self._access_token)
+        return url
+
+    def get_touts(self):
+        url = self.construct_url('api/v1/users/%s/touts' % self.uid)
+
+        self.touts = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')
 
     def get_followers(self):
-        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/followers' % self.uid)
+        url = self.construct_url('api/v1/users/%s/followers' % self.uid)
         
         self.followers = ToutCollection(base_url=url, access_token=self._access_token, coll_type='users')
 
     def get_following(self):
-        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/following' % self.uid)
+        url = self.construct_url('api/v1/users/%s/following' % self.uid)
         
         self.following = ToutCollection(base_url=url, access_token=self._access_token, coll_type='users')
 
     def get_likes(self):
-        pass
+        url = self.construct_url('api/v1/users/%s/likes' % self.uid)
+
+        self.likes = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')
 
     def get_participating_convos(self):
-        pass
-
-    def get_updates(self):
         pass
 
     def to_json(self):
