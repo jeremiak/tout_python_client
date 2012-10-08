@@ -1,16 +1,18 @@
 import httplib, mimetypes, types, requests
 import simplejson as json
 
+from tout_collection import ToutCollection
 from tout_user import ToutUser
 from tout_me import ToutMe
 from tout_tout import Tout
 
-class ToutAPIClient(object):
+class ToutClient(object):
     def __init__(self, access_token=None):
         self.protocol = 'https'
         self.base_url = 'api.tout.com'
         if access_token is not None:
             self.access_token = access_token
+            self.headers = {'Authorization': 'Bearer %s' % self.access_token}
         else:
             print "API is worthless without an access_token. Set yours on the ToutAPIClient object with ToutAPIClient.access_token = XX"
 
@@ -70,13 +72,21 @@ class ToutAPIClient(object):
         return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
 
     def get_me(self):
-        headers = {'Authorization': 'Bearer %s' % self.access_token}
         url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/me')
-        r = requests.get(url, headers=headers)
+        r = requests.get(url, headers=self.headers)
         if r.status_code == 200:
             u = r.json['user']
-            me = ToutMe(uid=u['uid'], username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
+            me = ToutMe(access_token=self.access_token, uid=u['uid'], username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
             
             return me
         else:
             return "An error occured"
+
+    def get_convo_touts(self, convo_id=None):
+        if convo_id is not None:
+            url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/conversations/%s/touts' % convo_id)
+            r = requests.get(url, headers=self.headers)
+
+            touts = ToutCollection(base_url=url, access_token=self.access_token)
+
+            return touts

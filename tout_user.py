@@ -1,5 +1,8 @@
+import requests
+from tout_collection import ToutCollection
+
 class ToutUser(object):
-    def __init__(self, uid=None, username=None, fullname=None, friendly_name=None, bio=None, location=None, verified=False, touts_count=0, followers_count=0, friends_count=0, following=False, followed_by=False):
+    def __init__(self, url_settings=None, access_token=None, uid=None, username=None, fullname=None, friendly_name=None, bio=None, location=None, verified=False, touts_count=0, followers_count=0, friends_count=0, following=False, followed_by=False):
         self.uid = uid
         self.username = username
         self.fullname = fullname
@@ -12,11 +15,48 @@ class ToutUser(object):
         self.friends_count = friends_count
         self.following = following
         self.followed_by = followed_by
+
+        self._access_token = access_token
         
-        self.immutable_fields = ['verified', 'touts_count', 'followers_count', 'friends_count', 'following', 'followed_by']
+        if url_settings is not None:
+            self._url_settings = url_settings
+        else:
+            self._url_settings = {'protocol': 'https', 'base_url': 'api.tout.com'}
+
+        self._immutable_fields = ['verified', 'touts_count', 'followers_count', 'friends_count', 'following', 'followed_by']
     
     def __str__(self):
-        return "@%s" % self.uid          
+        return "@%s user representation" % self.uid          
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def __repr__(self):
+        return self.__str__()
+
+    def get_touts(self):
+        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/touts' % self.uid)
+
+        self.touts = ToutCollection(base_url=url, access_token=self._access_token)
+
+    def get_followers(self):
+        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/followers' % self.uid)
+        
+        self.followers = ToutCollection(base_url=url, access_token=self._access_token, coll_type='users')
+
+    def get_following(self):
+        url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], 'api/v1/users/%s/following' % self.uid)
+        
+        self.following = ToutCollection(base_url=url, access_token=self._access_token, coll_type='users')
+
+    def get_likes(self):
+        pass
+
+    def get_participating_convos(self):
+        pass
+
+    def get_updates(self):
+        pass
 
     def to_json(self):
         import simplejson as json
