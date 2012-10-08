@@ -10,6 +10,12 @@ Primary interface is through ToutClient object. Instantiate with an access_token
 
 You can then retrieve the authenticated user (me), an arbitrary user, an arbitrary Tout, or a stream
 
+* [user](User)
+* [me](Me - authenticated user)
+* [tout](Tout)
+
+# User
+
 Each user object has methods that correspond to the API documentation. For example, you can retrieve of all of
 user @jeremiak's Touts by using the following:
 ```
@@ -30,6 +36,8 @@ jeremiak.touts.collection
 
 [Tout b2iw12, Tout p19ypy, Tout w69wnn, Tout oqpa2x, Tout s3cxoy, Tout rb30bl, Tout i5i5st, Tout q11rgi, Tout ooo1su, Tout kzn6to, Tout ujkup8, Tout 38j8kj, Tout 4h7ldj, Tout 2c9ygi]
 ```
+
+# Tout
 
 Each Tout object allows for the text to be set on that Tout, for the changes to be saved if the current user owns the Tout, and to delete the Tout (again if the current user is the owner).
 Every object has a reference to the access_token that was used to retrieve it. This allows you to update or delete a Tout easily.
