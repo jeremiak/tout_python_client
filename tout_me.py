@@ -1,4 +1,5 @@
 from tout_user import ToutUser
+from tout_collection import ToutCollection
 
 class ToutMe(ToutUser):
     def change_attribute(self, attribute_key, new_value):
@@ -8,4 +9,9 @@ class ToutMe(ToutUser):
             else:
                 return "%s is not a mutable attribute" % attribute_key
         else:
-            return "%s does not have attribute %s" % (self, attribute_key)     
+            return "%s does not have attribute %s" % (self, attribute_key)
+
+    def get_updates(self):
+        url = self.construct_url('api/v1/users/%s/updates' % self.uid)
+
+        self.updates = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')
