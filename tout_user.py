@@ -26,7 +26,7 @@ class ToutUser(object):
         self._immutable_fields = ['verified', 'touts_count', 'followers_count', 'friends_count', 'following', 'followed_by']
     
     def __str__(self):
-        return "@%s user representation" % self.uid          
+        return "@%s" % self.uid          
 
     def __unicode__(self):
         return self.__str__()

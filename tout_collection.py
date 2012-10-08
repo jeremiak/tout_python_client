@@ -21,7 +21,9 @@ class ToutCollection(object):
     def __repr__(self):
         cur_page = self._pagination['current_page']
         tot_pages = self._pagination['total_pages']
+        tot_entries = self._pagination['total_entries']
         repr_string = "Collection of %s - page %d of %d" % (self._type.title(), cur_page, tot_pages)
+        repr_string += "\nThere are a total of %d items in this collection" % tot_entries
         repr_string += '\nUse prev_page() and next_page() methods to paginate'
 
         return repr_string
