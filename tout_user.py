@@ -1,3 +1,4 @@
+import copy
 import requests
 from tout_collection import ToutCollection
 
@@ -93,5 +94,12 @@ class ToutUser(object):
     def to_json(self):
         import simplejson as json
         
-        user = {'user': self.__dict__} 
+        user_info = copy.deepcopy(self.__dict__)
+
+        del user_info['_access_token']
+        del user_info['_headers']
+        del user_info['_immutable_fields']
+        del user_info['_url_settings']
+
+        user = {'user': user_info} 
         return json.dumps(user)
