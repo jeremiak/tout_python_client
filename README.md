@@ -10,11 +10,11 @@ Primary interface is through ToutClient object. Instantiate with an access_token
 
 You can then retrieve the authenticated user (me), an arbitrary user, an arbitrary Tout, or a stream
 
-* [user](User)
-* [me](Me - authenticated user)
-* [tout](Tout)
+* [User][user-doc]
+* [Me][me-doc]
+* [Tout][tout-doc]
 
-### User
+### [user-doc]: "User"
 
 Each user object has methods that correspond to the API documentation. For example, you can retrieve of all of
 user @jeremiak's Touts by using the following:
