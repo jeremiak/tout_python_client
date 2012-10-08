@@ -35,6 +35,13 @@ class ToutUser(object):
     def __repr__(self):
         return self.__str__()
 
+    def __eq__(self, other):
+        try:
+            other.uid
+            return self.uid == other.uid
+        except AttributeError:
+            return False
+        
     def construct_url(self, api_method):
         url = "%s://%s/%s" % (self._url_settings['protocol'], self._url_settings['base_url'], api_method)
 
@@ -50,7 +57,7 @@ class ToutUser(object):
         else:
             print 'An error occured'
 
-     def unfollow(self):
+    def unfollow(self):
         url = self.construct_url('api/v1/users/%s/follows' % self.uid)
 
         r = requests.delete(url, headers=self._headers)
