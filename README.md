@@ -26,8 +26,21 @@ Touts that were returned in the above step we can simply do
 If we want to see the current page results we access the collection attribute such as 
 
 ```
->>>jeremiak.touts.collection
->>>[Tout nyz307, Tout c3pc8s, Tout rzeae5, Tout on9fgv, Tout dugzfe, Tout 9sf5lc, Tout opeb9x, Tout ge69n2, Tout 0vwqc0, Tout n4oe92, Tout exq9tx, Tout 9tqlti, Tout 22fkl3, Tout ymeiiw, Tout xxicyu, Tout mtsq86, Tout ynviw6, Tout tufmqw, Tout 6a8l5n, Tout q18hft, Tout ffap53, Tout 0ih0xz, Tout 08mk85, Tout 96v00t, Tout k0ztl1, Tout xqg3rb, Tout 78ges8, Tout mw9x3g, Tout zwk75s, Tout vxtvsi, Tout xjonyr, Tout 6rkzei, Tout ltm4aw, Tout menx0j, Tout cd2wm8, Tout y5ngvu, Tout b2iw12, Tout p19ypy, Tout w69wnn, Tout oqpa2x, Tout s3cxoy, Tout rb30bl, Tout i5i5st, Tout q11rgi, Tout ooo1su, Tout kzn6to, Tout ujkup8, Tout 38j8kj, Tout 4h7ldj, Tout 2c9ygi]
+jeremiak.touts.collection
+
+[Tout b2iw12, Tout p19ypy, Tout w69wnn, Tout oqpa2x, Tout s3cxoy, Tout rb30bl, Tout i5i5st, Tout q11rgi, Tout ooo1su, Tout kzn6to, Tout ujkup8, Tout 38j8kj, Tout 4h7ldj, Tout 2c9ygi]
+```
+
+Each Tout object allows for the text to be set on that Tout, for the changes to be saved if the current user owns the Tout, and to delete the Tout (again if the current user is the owner).
+Every object has a reference to the access_token that was used to retrieve it. This allows you to update or delete a Tout easily.
+
+```
+tout_to_update = jeremiak.tout.collection[0]
+tout_to_update.update_tout(text='New text goes here') # changes tout._changed to True
+tout_to_update.save() # will return an error if the token that was used to retrieve the Tout doesn't give proper ownership
+
+tout_to_delete = jeremiak.touts.collection[1]
+tout_to_delete.delete(confirm=True) # no going back, so make sure to pass in the confirm parameter otherwise the transaction won't happen
 ```
 
 # Examples
