@@ -54,7 +54,7 @@ class ToutCollection(object):
                     data = item['tout']
                     u = data['user']
                     user = ToutUser(uid=u['uid'], access_token=token, username=u['username'], fullname=u['fullname'], friendly_name=u['friendly_name'], bio=u['bio'], location=u['location'], verified=u['verified'], touts_count=u['touts_count'], followers_count=u['followers_count'], friends_count=u['friends_count'], following=u['following'], followed_by=u['followed_by'])
-                    tout = Tout(uid=data['uid'], access_token=token, text=data['text'], privacy=data['privacy'], recorded_at=data['recorded_at'], likes_count=data['likes_count'], replies_count=data['replies_count'], retouts_count=data['retouts_count'], user=user) 
+                    tout = Tout(uid=data['uid'], access_token=token, text=data['text'], privacy=data['privacy'], recorded_at=data['recorded_at'], likes_count=data['likes_count'], replies_count=data['replies_count'], retouts_count=data['retouts_count'], image=data['image'], video=data['video'], user=user) 
                 
                     collection.append(tout)
                 else:
