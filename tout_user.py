@@ -46,6 +46,17 @@ class ToutUser(object):
         r = requests.post(url, headers=self._headers)
         if r.status_code == 200:
             print 'Now following %s' % self.uid
+            self.get_followers()
+        else:
+            print 'An error occured'
+
+     def unfollow(self):
+        url = self.construct_url('api/v1/users/%s/follows' % self.uid)
+
+        r = requests.delete(url, headers=self._headers)
+        if r.status_code == 200:
+            print 'No longer following %s' % self.uid
+            self.get_followers() 
         else:
             print 'An error occured'
 
