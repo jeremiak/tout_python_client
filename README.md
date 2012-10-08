@@ -25,7 +25,10 @@ Touts that were returned in the above step we can simply do
 
 If we want to see the current page results we access the collection attribute such as 
 
-`jeremiak.touts.collection`
+```
+>>>jeremiak.touts.collection
+>>>[Tout nyz307, Tout c3pc8s, Tout rzeae5, Tout on9fgv, Tout dugzfe, Tout 9sf5lc, Tout opeb9x, Tout ge69n2, Tout 0vwqc0, Tout n4oe92, Tout exq9tx, Tout 9tqlti, Tout 22fkl3, Tout ymeiiw, Tout xxicyu, Tout mtsq86, Tout ynviw6, Tout tufmqw, Tout 6a8l5n, Tout q18hft, Tout ffap53, Tout 0ih0xz, Tout 08mk85, Tout 96v00t, Tout k0ztl1, Tout xqg3rb, Tout 78ges8, Tout mw9x3g, Tout zwk75s, Tout vxtvsi, Tout xjonyr, Tout 6rkzei, Tout ltm4aw, Tout menx0j, Tout cd2wm8, Tout y5ngvu, Tout b2iw12, Tout p19ypy, Tout w69wnn, Tout oqpa2x, Tout s3cxoy, Tout rb30bl, Tout i5i5st, Tout q11rgi, Tout ooo1su, Tout kzn6to, Tout ujkup8, Tout 38j8kj, Tout 4h7ldj, Tout 2c9ygi]
+```
 
 # Examples
 
