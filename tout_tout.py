@@ -29,6 +29,12 @@ class Tout(object):
     def __repr__(self):
         return "Tout %s" % self.uid
 
+    def like(self):
+        pass
+
+    def unlike(self):
+        pass
+
     def update_tout(self, text=None, privacy=None):
         if text is None and privacy is None:
             print "Update either text or privacy of this Tout"
