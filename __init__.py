@@ -49,11 +49,26 @@ class ToutClient(object):
             
             return tout
 
-    def get_convo_touts(self, convo_id=None):
-        if convo_id is not None:
-            url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/conversations/%s/touts' % convo_id)
-            r = requests.get(url, headers=self.headers)
+    def get_stream(self, uid='c6i24c'):
+        url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/streams/%s/touts' % uid)
 
-            touts = ToutCollection(base_url=url, access_token=self.access_token)
+        stream = ToutCollection(base_url=url, access_token=self.access_token)
 
-            return touts
+        return stream
+
+    def get_stream_from_widget(self, uid='sim2ov'):
+        url = 'http://%s/%s' % (self.base_url, '/widgets/%s.json' % uid)
+        r = requests.get(url)
+
+        if r.status_code == 200:
+            s_uid = r.json['widget']['stream_uid']
+            stream = self.get_stream(uid=s_uid)
+
+            return stream
+
+    def get_latest_touts(self):
+        url = "%s://%s/%s" % (self.protocol, self.base_url, 'api/v1/latest')
+
+        latest = ToutCollection(base_url=url, access_token=self.access_token)
+
+        return latest
