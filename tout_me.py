@@ -14,7 +14,7 @@ class ToutMe(ToutUser):
             return "%s does not have attribute %s" % (self, attribute_key)
     
     def post_tout(self, tout_file=None):
-        if self.access_token is None:
+        if self._access_token is None:
             return "Need a token"
         else:
             if type(tout_file) is types.FileType:
