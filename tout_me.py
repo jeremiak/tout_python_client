@@ -18,7 +18,7 @@ class ToutMe(ToutUser):
             return "Need a token"
         else:
             if type(tout_file) is types.FileType:
-                content_type, body = encode_multipart_formdata([('access_token', self.access_token)], [('tout[data]', tout_file.name, tout_file.read())])
+                content_type, body = encode_multipart_formdata([('access_token', self._access_token)], [('tout[data]', tout_file.name, tout_file.read())])
                 tout_file.close()
 
                 h = httplib.HTTPSConnection(self.base_url)
