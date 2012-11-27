@@ -1,7 +1,11 @@
+from tout_collection import ToutCollection  
+from tout_tout import Tout
 from tout_user import ToutUser
-from tout_collection import ToutCollection
 
+from types import FileType
 from utils import *
+
+import simplejson as json
 
 class ToutMe(ToutUser):
     def change_attribute(self, attribute_key, new_value):
@@ -13,15 +17,15 @@ class ToutMe(ToutUser):
         else:
             return "%s does not have attribute %s" % (self, attribute_key)
     
-    def post_tout(self, tout_file=None):
+    def post_tout(self, tout_file=None, tout_text=None, tout_privacy='public'):
         if self._access_token is None:
             return "Need a token"
         else:
-            if type(tout_file) is types.FileType:
+            if type(tout_file) is FileType:
                 content_type, body = encode_multipart_formdata([('access_token', self._access_token)], [('tout[data]', tout_file.name, tout_file.read())])
                 tout_file.close()
 
-                h = httplib.HTTPSConnection(self.base_url)
+                h = httplib.HTTPSConnection(self._url_settings['base_url'])
                 headers = {
                     'User-Agent': 'tout-python-client',
                     'Content-Type': content_type

@@ -1,6 +1,6 @@
-import httplib, mimetypes, types        
+import httplib, mimetypes  
 
-def encode_multipart_formdata(self, fields, files):
+def encode_multipart_formdata(fields, files):
     """
     fields is a sequence of (name, value) elements for regular form fields.
     files is a sequence of (name, filename, value) elements for data to be uploaded as files
@@ -17,7 +17,7 @@ def encode_multipart_formdata(self, fields, files):
     for (key, filename, value) in files:
         L.append('--' + BOUNDARY)
         L.append('Content-Disposition: form-data; name="%s"; filename="%s"' % (key, filename))
-        L.append('Content-Type: %s' % self.get_content_type(filename))
+        L.append('Content-Type: %s' % get_content_type(filename))
         L.append('')
         L.append(value)
     L.append('--' + BOUNDARY + '--')
@@ -26,5 +26,5 @@ def encode_multipart_formdata(self, fields, files):
     content_type = 'multipart/form-data; boundary=%s' % BOUNDARY
     return content_type, body
 
-def get_content_type(self, filename):
+def get_content_type(filename):
     return mimetypes.guess_type(filename)[0] or 'application/octet-stream'

@@ -17,6 +17,7 @@ class ToutUser(object):
         self.following = following
         self.followed_by = followed_by
 
+        self._touts_collection = None
         self._access_token = access_token
         self._headers = {'Authorization': 'Bearer %s' % access_token}
 
@@ -35,6 +36,14 @@ class ToutUser(object):
 
     def __repr__(self):
         return self.__str__()
+
+    def __getattr__(self, name):
+        if name == 'touts':
+            if self._touts_collection == None:
+                self._touts_collection = self.get_touts()
+
+            return self._touts_collection
+        
 
     def __eq__(self, other):
         try:
@@ -71,7 +80,7 @@ class ToutUser(object):
     def get_touts(self):
         url = self.construct_url('api/v1/users/%s/touts' % self.uid)
 
-        self.touts = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')
+        self.touts._collection = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')
 
     def get_followers(self):
         url = self.construct_url('api/v1/users/%s/followers' % self.uid)
