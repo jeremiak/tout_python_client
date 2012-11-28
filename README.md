@@ -14,7 +14,7 @@ You can then retrieve the authenticated user (me), an arbitrary user, an arbitra
 * [Me][me-doc]
 * [Tout][tout-doc]
 
-### [user-doc]: "User"
+### User
 
 Each user object has methods that correspond to the API documentation. For example, you can retrieve of all of
 user @jeremiak's Touts by using the following:
