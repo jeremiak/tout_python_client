@@ -19,7 +19,7 @@ You can then retrieve the authenticated user (me), an arbitrary user, an arbitra
 
 * [User](https://github.com/jeremiak/tout_python_client#usage)
 * [Me](https://github.com/jeremiak/tout_python_client#me)
-* [Tout](https://github.com/jeremiak/tout_python_client#usage)
+* [Tout](https://github.com/jeremiak/tout_python_client#tout)
 
 ### User
 
