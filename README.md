@@ -17,9 +17,9 @@ t = tout.ToutClient(access_token=TOKEN)
 
 You can then retrieve the authenticated user (me), an arbitrary user, an arbitrary Tout, or a stream
 
-* [User][user-doc]
-* [Me][me-doc]
-* [Tout][tout-doc]
+* [User](https://github.com/jeremiak/tout_python_client#usage)
+* [Me](https://github.com/jeremiak/tout_python_client#me)
+* [Tout](https://github.com/jeremiak/tout_python_client#usage)
 
 ### User
 
