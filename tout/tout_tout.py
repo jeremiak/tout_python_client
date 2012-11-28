@@ -29,11 +29,30 @@ class Tout(object):
     def __repr__(self):
         return "Tout %s" % self.uid
 
+    def generate_url(self, **kwargs):
+        endpoint = kwargs.get('endpoint', '')
+
+        url = '%s://%s/api/v1/touts/%s/%s' % (self._url_settings['protocol'], self._url_settings['base_url'], self.uid, endpoint)
+
+        return url
+
     def like(self):
-        pass
+        url = self.generate_url(endpoint='likes')
+
+        r = requests.post(url, headers=self._headers)
+
+        print 'Tout %s liked' % self.uid
+        
+        return r
 
     def unlike(self):
-        pass
+        url = self.generate_url(endpoint='likes')
+
+        r = requests.delete(url, headers=self._headers)
+
+        print 'Tout %s unliked' % self.uid
+
+        return r
 
     def update_tout(self, text=None, privacy=None):
         if text is None and privacy is None:
