@@ -2,11 +2,18 @@
 
 Cient for the Tout API. Check out docs and get keys at [developer.tout.com](http://developer.tout.com)
 
+## Installation
+
+`python setup.py install`
+
 ## Usage
 
 Primary interface is through ToutClient object. Instantiate with an access_token such as:
 
-`t = ToutClient(access_token=TOKEN)`
+```
+import tout
+t = tout.ToutClient(access_token=TOKEN)
+```
 
 You can then retrieve the authenticated user (me), an arbitrary user, an arbitrary Tout, or a stream
 
