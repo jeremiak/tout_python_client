@@ -18,6 +18,9 @@ class ToutMe(ToutUser):
             return "%s does not have attribute %s" % (self, attribute_key)
     
     def post_tout(self, tout_file=None, tout_text=None, tout_privacy='public'):
+        """
+        Only way to add Touts to the tout platform. Pass in a FileType and this will handle the multipart/form POST
+        """
         if self._access_token is None:
             return "Need a token"
         else:
@@ -44,6 +47,9 @@ class ToutMe(ToutUser):
                 return "Please pass in a Tout video file"
 
     def get_updates(self):
+        """
+        Return an instance of the ToutCollection class; represents the authenticated user's feed of Tout videos from the other users he/she follows
+        """
         url = self.construct_url('api/v1/users/%s/updates' % self.uid)
 
         self.updates = ToutCollection(base_url=url, access_token=self._access_token, coll_type='touts')

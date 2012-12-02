@@ -72,12 +72,18 @@ class ToutCollection(object):
         self._pagination['current_page'] += difference
 
     def next_page(self):
+        """
+        Set the collection attribute on this object to the data of the next page of Tout results
+        """
         if (self._pagination['current_page'] < self._pagination['total_pages']):
             self.different_page(difference=1)
         else:
             print "Reached the end of the collection"
 
     def prev_page(self):
+        """
+        Set the collection attribute on this object to the data of the previous page of Tout results
+        """
         if (self._pagination['current_page'] > 1):
             self.different_page(difference=-1)
         else:
@@ -85,6 +91,9 @@ class ToutCollection(object):
         
 
     def exact_page(self, page=1):
+        """
+        Set the collection attribute on this object to the data of an exact page of Tout results
+        """
         url = '%s?per_page=%d&page=%d' % (self._base_url, self._pagination['per_page'], page)
 
         self.set_collection(url)
