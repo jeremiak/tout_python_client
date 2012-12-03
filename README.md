@@ -6,6 +6,8 @@ Cient for the Tout API. Check out docs and get keys at [developer.tout.com](http
 
 `python setup.py install`
 
+or `pip install tout`
+
 ## Usage
 
 Primary interface is through ToutClient object. Instantiate with an access_token such as:
