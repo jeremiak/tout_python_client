@@ -10,6 +10,6 @@ setup(name='tout',
         url='http://developer.tout.com',
         #package_dir = {'': 'client'},
         packages = ['tout'],
-        install_requires=['requests', 'simplejson'],
+        install_requires=['python-dateutil', 'requests', 'simplejson'],
         license='MIT',
         )
